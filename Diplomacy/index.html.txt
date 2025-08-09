@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diplomacy</title>
+    <link rel="stylesheet" href="C:\Users\t3bal\OneDrive\Documents\Diplomacy\style.css">
+</head>
+<body>
+
+    <h1>Diplomacy</h1>
+
+    <div id="game-container">
+        <svg id="custom-map" viewBox="0 0 800 600" href="C:\Users\t3bal\OneDrive\Documents\Diplomacy\maps\SVGTestOne_One.svg">
+            </svg>
+
+        <div id="info-panel">
+            <h2>Current Turn</h2>
+            <p id="status-message">Select a territory to issue an order.</p>
+            <button id="clear-button">Clear Orders</button>
+            <button id="process-turn-button">Process Turn</button>
+        </div>
+    </div>
+
+	<!-- Added to original for the order logic -->
+	<div id="info-panel">
+    <h2>Current Orders</h2>
+    <p id="status-message">Select a territory to issue an order.</p>
+    <ul id="orders-list">
+        </ul>
+    <button id="clear-button">Clear Orders</button>
+    <button id="process-turn-button">Process Turn</button>
+	</div>
+	<!-- end of added section for order logic -->
+
+    <script src="script.js"></script>
+</body>
+</html>

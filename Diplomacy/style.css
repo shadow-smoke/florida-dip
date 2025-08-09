@@ -1,0 +1,332 @@
+body {
+    font-family: 'Inter', sans-serif; /* Using Inter font */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #e0f2f7; /* Light blue background */
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+h1 {
+    color: #263238; /* Darker text for heading */
+    margin-bottom: 25px;
+    font-size: 2.5em;
+    text-align: center;
+}
+
+#game-area {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 30px;
+    justify-content: center;
+    width: 100%;
+}
+
+#custom-map {
+    flex-grow: 1; /* Allow map to grow */
+    max-width: 800px; /* Max width for the map */
+    height: auto; /* Maintain aspect ratio */
+    min-height: 400px; /* Minimum height for visibility */
+    border: 2px solid #607d8b; /* Blue-grey border */
+    border-radius: 8px;
+    background-color: #f5f5f5; /* Light background for map area */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+#custom-map rect,
+#custom-map circle,
+#custom-map polygon,
+#custom-map path {
+    fill: #cfd8dc; /* Default light grey for territories */
+    stroke: #546e7a; /* Darker stroke */
+    stroke-width: 1.5;
+    cursor: pointer;
+    transition: fill 0.2s ease-in-out, stroke 0.2s ease-in-out;
+    rx: 8; /* Rounded corners for rects */
+    ry: 8;
+}
+
+#custom-map text {
+    pointer-events: none; /* Make text non-clickable, so clicks go to the shape */
+    fill: #37474f;
+    font-weight: bold;
+    text-anchor: middle;
+    alignment-baseline: middle;
+}
+
+#custom-map rect:hover,
+#custom-map circle:hover,
+#custom-map polygon:hover,
+#custom-map path:hover {
+    fill: #b0bec5; /* Slightly darker on hover */
+}
+
+/* Highlight for the origin of a move/support */
+.selected-origin {
+    fill: #2196F3 !important; /* Blue for the primary selected unit */
+    stroke-width: 3 !important;
+    stroke: #1976D2 !important;
+    box-shadow: 0 0 10px rgba(33, 150, 243, 0.7);
+}
+
+/* Highlight for the destination of a move/supported unit */
+.selected-destination {
+    fill: #FFC107 !important; /* Amber for the destination of a move/supported unit's territory */
+    stroke-width: 3 !important;
+    stroke: #FFA000 !important;
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.7);
+}
+
+/* Highlight for the support target (the action the supported unit is taking) */
+.selected-support {
+    fill: #4CAF50 !important; /* Green for the supporting unit */
+    stroke-width: 3 !important;
+    stroke: #388E3C !important;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.7);
+}
+
+
+#info-panel {
+    flex-basis: 350px; /* Fixed width for info panel */
+    min-width: 300px;
+    border: 1px solid #b0bec5;
+    padding: 20px;
+    background-color: #eceff1; /* Light grey background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#info-panel h2 {
+    color: #37474f;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.8em;
+    text-align: center;
+}
+
+#status-message {
+    background-color: #bbdefb; /* Light blue for status */
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #90caf9;
+    color: #1a237e;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#order-type-selection {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.order-type-btn {
+    padding: 10px 20px;
+    border: 2px solid #90a4ae;
+    border-radius: 25px;
+    background-color: #f5f5f5;
+    color: #546e7a;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.1s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.order-type-btn:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+.order-type-btn.active-order-type {
+    background-color: #4CAF50; /* Green for active */
+    color: white;
+    border-color: #388E3C;
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+    transform: translateY(0);
+}
+
+#current-order-display {
+    border: 1px solid #b0bec5;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-bottom: 15px;
+}
+
+#current-order-display p {
+    margin: 8px 0;
+    color: #455a64;
+    font-size: 0.95em;
+}
+
+#current-order-display strong {
+    color: #263238;
+}
+
+#orders-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 0;
+    flex-grow: 1; /* Allow list to take available space */
+    overflow-y: auto; /* Scroll if too many orders */
+    max-height: 250px; /* Max height before scrolling */
+    border: 1px solid #cfd8dc;
+    border-radius: 8px;
+    background-color: #ffffff;
+    padding: 10px;
+}
+
+#orders-list li {
+    background-color: #e3f2fd; /* Lighter blue for list items */
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    border: 1px solid #bbdefb;
+    color: #2196F3;
+    font-weight: 500;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+#orders-list li:last-child {
+    margin-bottom: 0;
+}
+
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.3s ease;
+    margin-top: 10px;
+    width: 100%; /* Full width buttons */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#clear-button {
+    background-color: #f44336; /* Red for clear */
+    color: white;
+}
+
+#clear-button:hover {
+    background-color: #d32f2f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(244, 67, 54, 0.3);
+}
+
+#process-turn-button {
+    background-color: #00bcd4; /* Cyan for process */
+    color: white;
+}
+
+#process-turn-button:hover {
+    background-color: #0097a7;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 188, 212, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #game-area {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #custom-map {
+        width: 100%;
+        max-width: 600px; /* Limit map size on small screens too */
+        min-height: 300px;
+    }
+
+    #info-panel {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+}
+
+/* Unit and Selection Styles */
+.unit-army, .unit-fleet {
+    stroke: rgb(253, 4, 241);
+    stroke-width: 2;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.unit-army:hover, .unit-fleet:hover {
+    transform: scale(1.2);
+}
+
+/* Player-specific colors */
+.player-Miami { fill: #FF6347; }    /* Tomato */
+.player-Orlando { fill: #1E90FF; }   /* DodgerBlue */
+.player-Tampa { fill: #32CD32; }     /* LimeGreen */
+.player-Jacksonville { fill: #FFD700; } /* Gold */
+.player-Tallahassee { fill: #8A2BE2; } /* BlueViolet */
+.player-Pensacola { fill: #00CED1; } /* DarkTurquoise */
+
+/* Selection classes */
+.selected-origin { fill: #008000; fill-opacity: 0.8; }
+.selected-destination { fill: #FF4500; fill-opacity: 0.8; }
+.selected-support { fill: #FFA500; fill-opacity: 0.8; }
+
+/* Styles for the player legend */
+#player-legend {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #e3f2fd;
+    border-radius: 8px;
+    border: 1px solid #bbdefb;
+}
+
+#player-legend h3 {
+    margin-top: 0;
+    color: #1a237e;
+    text-align: center;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.legend-color {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    margin-right: 10px;
+    border: 1px solid rgba(0,0,0,0.2);
+}

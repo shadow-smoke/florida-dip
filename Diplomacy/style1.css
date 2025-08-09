@@ -1,0 +1,122 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+h1 {
+    width: 100%;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#game-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+}
+
+#custom-map {
+    width: 100%;
+    height: auto;
+    border: 2px solid #333;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 8px;
+}
+
+#info-panel {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 350px;
+}
+
+.order-type-btn {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    background-color: #f4f4f4;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0 5px 10px 0;
+}
+
+.order-type-btn.active-order-type {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+#orders-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#orders-list li {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+
+#clear-button, #process-turn-button {
+    padding: 10px;
+    margin-top: 10px;
+    width: 100%;
+    cursor: pointer;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+#clear-button {
+    background-color: #dc3545;
+}
+
+#process-turn-button {
+    background-color: #28a745;
+}
+
+/* Unit and Selection Styles */
+.unit-army, .unit-fleet {
+    stroke: black;
+    stroke-width: 5;
+    cursor: pointer;
+    transition: transform 0.2s;
+    fill-opacity: 0.7; /* Added transparency */
+}
+
+.unit-army:hover, .unit-fleet:hover {
+    transform: scale(1.2);
+}
+
+/* Player-specific colors */
+.player-Miami { fill: #F38A72; }    
+.player-Orlando { fill: #C488FF; }   
+.player-Tampa { fill: #F9F59A; }     
+.player-Jacksonville { fill: #3187D3; } 
+.player-Tallahassee { fill: #BFFF7F; } 
+.player-Pensacola { fill: #FF1A8D; } 
+
+/* Selection classes */
+.selected-origin { fill: #008000; fill-opacity: 0.8; }
+.selected-destination { fill: #FF4500; fill-opacity: 0.8; }
+.selected-support { fill: #FFA500; fill-opacity: 0.8; }
